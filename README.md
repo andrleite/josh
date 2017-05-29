@@ -88,7 +88,7 @@ It's possible test in lambda passing payload in configuration test.
     "docker_image": "alpine",
     "instance_type": "m3.medium",
     "spot_price": "0.5",
-    "env_vars": "{'DB_HOST': '10.0.0.2', 'JOB_TIMEOUT': '10'}",
+    "env_vars": {"DB_HOST": "10.0.0.2", "JOB_TIMEOUT": 10},
     "start_time": "2017-06-01T19:50:00Z",
     "docker_command": "sleep 300",
     "s3_url": "https://s3-aws-west-2.amazonaws.com/s3-josh-bucket1/docker_listen.py",
