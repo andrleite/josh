@@ -10,7 +10,7 @@ from pynamodb.connection import Connection
 from pynamodb.models import Model
 from pynamodb.attributes import ( UnicodeAttribute, NumberAttribute, UnicodeSetAttribute, UTCDateTimeAttribute, JSONAttribute )
 from pynamodb.exceptions import PutError
-from response import HttpResponse
+from josh.response import HttpResponse
 from botocore.exceptions import ClientError
 
 client = boto3.client('dynamodb')
@@ -58,9 +58,9 @@ class DynamoDB(object):
             status="scheduled",
             env_vars=str(self.payload['env_vars']),
             start_time=self.payload['start_time'],
-            created_at=datetime.now()
-            docker_command=self.payload['docker_command']
-            callback_uri=self.payload['callback_uri']
+            created_at=datetime.now(),
+            docker_command=self.payload['docker_command'],
+            callback_uri=self.payload['callback_uri'],
             s3_url=self.payload['s3_url']
         )
         try:

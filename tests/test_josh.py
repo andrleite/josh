@@ -3,14 +3,14 @@
 """This module tests everything about scheduler a job"""
 
 import unittest
-from josh.model import SchedulerModel
+from josh.model import DynamoDB
 
 class JoshSchedulerTests(unittest.TestCase):
     """Job Scheduler Test class"""
 
     def setUp(self):
         unittest.TestCase.setUp(self)
-        self.scheduler = SchedulerModel
+        self.scheduler = DynamoDB
 
     def test_uid_job_scheduler(self):
         """Generate random ID with uuid"""
