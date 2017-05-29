@@ -6,11 +6,11 @@ import uuid
 import json
 from datetime import datetime
 import boto3
+from .response import HttpResponse
 from pynamodb.connection import Connection
 from pynamodb.models import Model
 from pynamodb.attributes import ( UnicodeAttribute, NumberAttribute, UnicodeSetAttribute, UTCDateTimeAttribute, JSONAttribute )
 from pynamodb.exceptions import PutError
-from response import HttpResponse
 from botocore.exceptions import ClientError
 
 client = boto3.client('dynamodb')
