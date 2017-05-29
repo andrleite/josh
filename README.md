@@ -84,15 +84,15 @@ It's possible test in lambda passing payload in configuration test.
     "Content-Type": "application/json"
   },
   "body": {
-    "job_name": "ETLProcess",
-    "docker_image": "etl/test",
-    "instance_type": "c4.large",
-    "bid": "1.4",
-    "status": "scheduled",
-    "env_vars": "{'DB_HOST': 'HOST', 'JOB_TIMEOUT': '10'}",
-    "scheduleTo": "20170516223000",
+    "name": "ETLProcess",
+    "docker_image": "alpine",
+    "instance_type": "m3.medium",
+    "spot_price": "0.5",
+    "env_vars": "{'DB_HOST': '10.0.0.2', 'JOB_TIMEOUT': '10'}",
+    "start_time": "2017-06-01T19:50:00Z",
     "docker_command": "sleep 300",
-    "s3_url": "https://s3-aws-west-2.amazonaws.com/s3-josh-bucket1/docker_listen.py"
+    "s3_url": "https://s3-aws-west-2.amazonaws.com/s3-josh-bucket1/docker_listen.py",
+    "callback_uri": "https://flm7nplru8.execute-api.us-west-2.amazonaws.com/prod/schedulers"
   },
   "httpMethod": "POST",
   "path": "/schedulers"
