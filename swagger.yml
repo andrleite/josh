@@ -1,0 +1,125 @@
+---
+swagger: '2.0'
+info:
+  title: JOSH API
+  description: This specification is for the *Josh* API Josh is a **JOB Scheduler** API for container process.
+  version: "1.0.0"
+# array of all schemes that API supports
+schemes:
+  - https
+# will be prefixed to all paths
+basePath: /v1
+produces:
+  - application/json
+
+x-amazon-apigateway-request-validators:
+  body-only:
+    validateRequestBody: true
+    validateRequestParameters: false
+
+# Paths
+paths:
+  /schedulers:
+    post:
+      summary: this get all jobs scheduleds
+      description: Return a list of jobs scheduleds
+      x-amazon-apigateway-request-validator: body-only
+      parameters:
+        - name: schedulers
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/CreateSchedulers'
+      # Consumes & produces
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      # Responses
+      responses:
+        "201":
+          description: Job created successfully
+        
+        "400":
+          description: Response Error
+          schema:
+            $ref: "#/definitions/Message"
+            
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+        uri: "arn:aws:apigateway:us-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-west-2:878911958671:function:josh/invocations"
+        passthroughBehavior: "when_no_match"
+        httpMethod: POST
+        cacheNamespace: "90ntfe"
+        contentHandling: "CONVERT_TO_TEXT"
+        type: "aws_proxy"
+
+    get:
+      summary: Get all job scheduleds
+      description: Return a list os scheduleds jobs
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: '#/definitions/Schedulers'
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+        uri: "arn:aws:apigateway:us-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-west-2:878911958671:function:josh/invocations"
+        passthroughBehavior: "when_no_match"
+        httpMethod: GET
+        cacheNamespace: "90ntfe"
+        contentHandling: "CONVERT_TO_TEXT"
+        type: "aws_proxy"
+            
+# Definitions      
+definitions:
+  # collection of scheduler
+  CreateSchedulers:
+    title: Create schedulers Schema
+    type: array
+    minItems: 1
+    items:
+      $ref: '#/definitions/Scheduler'
+      
+  Schedulers:
+    type: array
+    title: "Get Schedulers Schema"
+    items:
+      type: object
+      properties:
+        id:
+          type: string
+        time:
+          type: string
+        state:
+          type: string
+        scheduler:
+          $ref: '#/definitions/Scheduler'
+      
+  Scheduler:
+    type: object
+    required:
+      - name
+      - dockerImage
+      - bid
+      - scheduleTo
+    properties:
+      name:
+        type: string
+      dockerImage:
+        type: string
+      bid:
+        type: number
+        minimum: 1
+        maximum: 4
+      scheduleTo:
+        type: number
+  
+  Message:
+    type: object
+    properties:
+      message: {type: string}

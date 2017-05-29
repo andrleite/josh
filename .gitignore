@@ -92,3 +92,6 @@ include/
 
 # Rope project settings
 .ropeproject
+
+.vscode/
+keypair

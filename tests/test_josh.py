@@ -1,9 +1,22 @@
+# _*_ coding: utf-8 _*_
+
+"""This module tests everything about scheduler a job"""
+
 import unittest
-from josh.calculator import Calculator
+from josh.model import SchedulerModel
 
-class TddInPythonExample(unittest.TestCase):
+class JoshSchedulerTests(unittest.TestCase):
+    """Job Scheduler Test class"""
 
-    def test_calculator_add_method_returns_correct_result(self):
-        calc = Calculator()
-        result = calc.add(2,2)
-        self.assertEqual(4, result)
+    def setUp(self):
+        unittest.TestCase.setUp(self)
+        self.scheduler = SchedulerModel
+
+    def test_uid_job_scheduler(self):
+        """Generate random ID with uuid"""
+        first_id = self.scheduler.get_uuid()
+        second_id = self.scheduler.get_uuid()
+        self.assertNotEqual(first_id, second_id)
+
+if __name__ == '__main__':
+    unittest.main()
