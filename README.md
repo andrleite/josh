@@ -27,9 +27,12 @@ export AWS_DEFAULT_REGION="us-west-2"
 
 **Run terraform**:
 Need aws account id
+
+**Important: To run with CoreOS AMI is necessary accept AMI EULA in markeplace.
+
 ```bash
-terraform plan -var accountId=xxxxxx -var bucket_name=mybucket
-terraform apply -var accountId=xxxxxx
+terraform plan -var accountId=xxxxxx -var bucket_name=mybucket -var public_key_file=keypair.pub
+terraform apply -var accountId=xxxxxx -var bucket_name=mybucket -var public_key_file=keypair.pub
 ```
 terraform will output **api_url**
 
@@ -91,6 +94,7 @@ It's possible test in lambda passing payload in configuration test.
     "docker_command": "sleep 300",
     "s3_url": "https://s3-aws-west-2.amazonaws.com/s3-josh-bucket1/docker_listen.py"
   },
-  "httpMethod": "POST"
+  "httpMethod": "POST",
+  "path": "/schedulers"
 }
 ```

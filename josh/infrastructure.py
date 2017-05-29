@@ -7,7 +7,7 @@ from botocore.exceptions import ClientError
 from response import HttpResponse
 
 # __ami_id__ = 'ami-a8b320c8'
-__keypair__ = 'josh1'
+__keypair__ = 'josh'
 __client__ = boto3.client('autoscaling')
 __ec2__ = boto3.client('ec2')
 __zones__ = __ec2__.describe_availability_zones()

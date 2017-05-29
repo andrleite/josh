@@ -4,6 +4,12 @@ provider "aws" {}
 
 variable "accountId" {}
 variable "bucket_name" {}
+variable "public_key_file" {}
+
+resource "aws_key_pair" "joshkeypair" {
+  key_name   = "josh"
+  public_key = "${file("${var.public_key_file}")}"
+}
 
 resource "aws_dynamodb_table" "josh_dynamodb_table" {
   name           = "scheduler"
