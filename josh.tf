@@ -44,6 +44,53 @@ resource "aws_iam_role" "josh_lambda_role" {
 EOF
 }
 
+resource "aws_iam_policy" "josh-policy" {
+  name        = "josh_policy"
+  path        = "/"
+  description = "Josh Policy"
+
+  policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "autoscaling:*",
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "logs:CreateLogGroup",
+            "Resource": "arn:aws:logs:us-west-2:*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "dynamodb:UpdateItem",
+                "dynamodb:Query",
+                "dynamodb:Scan",
+                "dynamodb:DescribeTable",
+                "dynamodb:GetItem",
+                "dynamodb:PutItem"
+            ],
+            "Resource": "arn:aws:dynamodb:us-west-2:*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "ec2:*",
+            "Resource": "*"
+        }
+    ]
+}
+EOF
+}
+
+resource "aws_iam_policy_attachment" "attach" {
+  name       = "josh-attachment"
+  roles      = ["${aws_iam_role.josh_lambda_role.name}"]
+  policy_arn = "${aws_iam_policy.josh-policy.arn}"
+}
+
 resource "aws_lambda_function" "josh" {
   filename         = "josh.zip"
   function_name    = "josh"

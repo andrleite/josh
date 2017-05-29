@@ -72,3 +72,25 @@ curl -H "Content-Type: application/json"-X PUT -d '{"status": "done"}' https://f
 ```bash
 curl -H "Content-Type: application/json"-X DELETE https://flm7nplru8.execute-api.us-west-2.amazonaws.com/prod/schedulers/99eda6ba-441f-11e7-a73a-b8e85638171c
 ```
+
+It's possible test in lambda passing payload in configuration test.
+```json
+{
+  "headers": {
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+    "Content-Type": "application/json"
+  },
+  "body": {
+    "job_name": "ETLProcess",
+    "docker_image": "etl/test",
+    "instance_type": "c4.large",
+    "bid": "1.4",
+    "status": "scheduled",
+    "env_vars": "{'DB_HOST': 'HOST', 'JOB_TIMEOUT': '10'}",
+    "scheduleTo": "20170516223000",
+    "docker_command": "sleep 300",
+    "s3_url": "https://s3-aws-west-2.amazonaws.com/s3-josh-bucket1/docker_listen.py"
+  },
+  "httpMethod": "POST"
+}
+```

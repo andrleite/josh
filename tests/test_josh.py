@@ -3,7 +3,7 @@
 """This module tests everything about scheduler a job"""
 
 import unittest
-from josh.model import DynamoDB
+from model import DynamoDB
 
 class JoshSchedulerTests(unittest.TestCase):
     """Job Scheduler Test class"""

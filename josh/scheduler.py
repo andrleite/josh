@@ -13,7 +13,7 @@ from infrastructure import InfraStructure
 
 print('Loading function')
 
-IMAGE_ID = os.environ['AMI_ID']
+IMAGE_ID = os.environ['IMAGE_ID']
 
 pattern1 = re.compile("/schedulers.+")
 pattern2 = re.compile("/schedulers/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}")

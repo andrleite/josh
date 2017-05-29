@@ -10,7 +10,7 @@ from pynamodb.connection import Connection
 from pynamodb.models import Model
 from pynamodb.attributes import ( UnicodeAttribute, NumberAttribute, UnicodeSetAttribute, UTCDateTimeAttribute, JSONAttribute )
 from pynamodb.exceptions import PutError
-from josh.response import HttpResponse
+from response import HttpResponse
 from botocore.exceptions import ClientError
 
 client = boto3.client('dynamodb')
