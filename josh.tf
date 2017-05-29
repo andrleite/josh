@@ -66,6 +66,11 @@ resource "aws_iam_policy" "josh-policy" {
         },
         {
             "Effect": "Allow",
+            "Action": "kms:*",
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
             "Action": "logs:CreateLogGroup",
             "Resource": "arn:aws:logs:us-west-2:*"
         },

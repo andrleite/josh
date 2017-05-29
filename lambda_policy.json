@@ -13,6 +13,11 @@
         },
         {
             "Effect": "Allow",
+            "Action": "kms:*",
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
             "Action": [
                 "dynamodb:UpdateItem",
                 "dynamodb:Query",
