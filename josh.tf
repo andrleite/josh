@@ -104,6 +104,8 @@ resource "aws_lambda_function" "josh" {
   handler          = "scheduler.lambda_handler"
   source_code_hash = "${base64sha256(file("josh.zip"))}"
   runtime          = "python3.6"
+  memory_size      = 1024
+  timeout          = 10
 
   environment {
     variables = {
