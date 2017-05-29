@@ -2,10 +2,10 @@
 
 """This module provide a pythonic interface for Amazon's DynamoDB"""
 
-import uuid
 import json
 from datetime import datetime
 import boto3
+from .generate_uid import GenerateUID
 from .response import HttpResponse
 from pynamodb.connection import Connection
 from pynamodb.models import Model
@@ -41,14 +41,9 @@ class SchedulerModel(Model):
 class DynamoDB(object):
     def __init__(self, payload=None):
         self.payload = payload
-    
-    @staticmethod
-    def get_uuid():
-        """Create unique uuid and return it"""
-        return str(uuid.uuid1())
 
     def create_item(self):
-        job_id = DynamoDB.get_uuid()
+        job_id = GenerateUID.get_uuid()
         job_item = SchedulerModel(
             job_id,
             name=self.payload['name'],
