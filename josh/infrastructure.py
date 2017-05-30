@@ -6,7 +6,6 @@ import boto3
 from botocore.exceptions import ClientError
 from response import HttpResponse
 
-# __ami_id__ = 'ami-a8b320c8'
 __keypair__ = 'josh'
 __client__ = boto3.client('autoscaling')
 __ec2__ = boto3.client('ec2')
@@ -127,23 +126,3 @@ class InfraStructure(object):
             ['HTTPStatusCode'], err.response['Error']['Message'])
             response = resp.response()
             return response
-
-# asg = InfraStructure(name='test',image_id='ami-a8b320c8', instance_type='m3.medium',
-#     spot_price='0.5', start_time='2017-05-28T17:25:00Z', env_vars='{"DB_HOST": "db.host"}',
-#     docker_image='alpine', job_id='4444-4444-4444-4444')
-# try:
-#    # launch_configuration = asg.create_launch_configuration()
-#    # auto_scaling = asg.create_auto_scaling_group()
-#     scheduler = asg.put_scheduled()
-#    # print(launch_configuration)
-#    # print(auto_scaling)
-#     print(scheduler)
-# except Exception as err:
-#     print(err.args)
-
-# try:
-#    del_asg = asg.delete_auto_scaling_group()
-#    del_lc = asg.delete_launch_configuration()
-#    print(del_asg)
-#    print(del_lc)
-# except Exception as e: print(e)
