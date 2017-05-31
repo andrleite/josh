@@ -103,5 +103,5 @@ It's possible test in lambda passing payload in configuration test.
 
 **To destroy**:
 ```bash
-terraform destroy -var accountId=878911958671 -var bucket_name=s3-josh-bucket1 -var public_key_file=keypair.pub
+terraform destroy -var bucket_name=s3-josh-bucket1 -var public_key_file=keypair.pub
 ```
