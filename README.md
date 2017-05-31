@@ -30,9 +30,11 @@ Need aws account id
 
 **Important: To run with CoreOS AMI is necessary accept AMI EULA in markeplace.
 
+Terraform will create S3 bucket to upload docker_listen.py
+
 ```bash
-terraform plan -var accountId=xxxxxx -var bucket_name=mybucket -var public_key_file=keypair.pub
-terraform apply -var accountId=xxxxxx -var bucket_name=mybucket -var public_key_file=keypair.pub
+terraform plan -var bucket_name=mybucket -var public_key_file=keypair.pub
+terraform apply -var bucket_name=mybucket -var public_key_file=keypair.pub
 ```
 terraform will output **api_url**
 

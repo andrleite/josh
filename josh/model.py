@@ -5,8 +5,8 @@
 import json
 from datetime import datetime
 import boto3
-from .generate_uid import GenerateUID
-from .response import HttpResponse
+from generate_uid import GenerateUID
+from response import HttpResponse
 from pynamodb.connection import Connection
 from pynamodb.models import Model
 from pynamodb.attributes import ( UnicodeAttribute, NumberAttribute, UnicodeSetAttribute, UTCDateTimeAttribute, JSONAttribute )

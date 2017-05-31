@@ -25,6 +25,7 @@ class InfraStructure(object):
         echo JOB_NAME="{0}" >> /etc/environment
         echo JOB_ID="{1}" >> /etc/environment
         echo CALLBACK_URI={2} >> /etc/environment
+        wget -qO- https://raw.githubusercontent.com/ziozzang/python-on-coreos/master/install-python-on-coreos.sh | bash
         """.format(self.payload['name'], self.job_id, self.payload['callback_uri'])
 
         for key, value in data.items():
@@ -32,9 +33,11 @@ class InfraStructure(object):
                 'echo {0}="{1}" >> /etc/environment\n'.format(key, value)
 
         userdata = userdata + \
-            'docker run -d {0} {1}'.format(self.payload['docker_image'], self.payload['docker_command'])
+            'docker run -d {0} {1}\n'.format(self.payload['docker_image'], self.payload['docker_command'])
         userdata = userdata + \
-            'wget {0}'.format(self.payload['s3_url'])
+            'wget {0} -P /home/core\n'.format(self.payload['s3_url'])
+        userdata = userdata + \
+            '/opt/bin/python /home/core/docker_listen.py &'
         return userdata
 
     def create_launch_configuration(self):
