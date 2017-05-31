@@ -32,9 +32,13 @@ Need aws account id
 
 Terraform will create S3 bucket to upload docker_listen.py
 
-```bash
+```hcl
 terraform plan -var bucket_name=mybucket -var public_key_file=keypair.pub
 terraform apply -var bucket_name=mybucket -var public_key_file=keypair.pub
+```
+
+```hcl
+terraform output
 ```
 terraform will output **api_url**
 
@@ -102,6 +106,6 @@ It's possible test in lambda passing payload in configuration test.
 ```
 
 **To destroy**:
-```bash
+```hcl
 terraform destroy -var bucket_name=s3-josh-bucket1 -var public_key_file=keypair.pub
 ```
