@@ -1,8 +1,6 @@
 # Create Josh Infra Structure
-#878911958671
 provider "aws" {}
 
-variable "accountId" {}
 variable "bucket_name" {}
 variable "public_key_file" {}
 
@@ -122,12 +120,14 @@ resource "aws_lambda_function" "josh" {
 resource "aws_api_gateway_rest_api" "joshAPI" {
   name        = "joshAPI"
   description = "This is Job Scheduler API"
+  depends_on  = ["aws_lambda_function.josh"]
 }
 
 resource "aws_api_gateway_resource" "joshResource" {
   rest_api_id = "${aws_api_gateway_rest_api.joshAPI.id}"
   parent_id   = "${aws_api_gateway_rest_api.joshAPI.root_resource_id}"
   path_part   = "{proxy+}"
+  depends_on  = ["aws_api_gateway_rest_api.joshAPI"]
 }
 
 resource "aws_api_gateway_method" "joshAnyMethod" {
@@ -135,25 +135,17 @@ resource "aws_api_gateway_method" "joshAnyMethod" {
   resource_id   = "${aws_api_gateway_resource.joshResource.id}"
   http_method   = "ANY"
   authorization = "NONE"
+  depends_on    = ["aws_api_gateway_resource.joshResource"]
 }
 
 resource "aws_api_gateway_integration" "integration" {
   rest_api_id             = "${aws_api_gateway_rest_api.joshAPI.id}"
   resource_id             = "${aws_api_gateway_rest_api.joshAPI.root_resource_id}"
   http_method             = "${aws_api_gateway_method.joshAnyMethod.http_method}"
-  integration_http_method = "ANY"
   type                    = "AWS_PROXY"
   uri                     = "arn:aws:apigateway:us-west-2:lambda:path/2015-03-31/functions/${aws_lambda_function.josh.arn}/invocations"
-}
-
-resource "aws_lambda_permission" "apigw_lambda" {
-  statement_id  = "AllowExecutionFromAPIGateway"
-  action        = "lambda:InvokeFunction"
-  function_name = "${aws_lambda_function.josh.arn}"
-  principal     = "apigateway.amazonaws.com"
-
-  # More: http://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-control-access-using-iam-policies-to-invoke-api.html
-  source_arn = "arn:aws:execute-api:us-west-2:${var.accountId}:${aws_api_gateway_rest_api.joshAPI.id}/*/${aws_api_gateway_method.joshAnyMethod.http_method}/resourcepath/subresourcepath"
+  integration_http_method = "POST"
+  depends_on              = ["aws_api_gateway_method.joshAnyMethod"]
 }
 
 resource "aws_api_gateway_deployment" "Deployment" {
